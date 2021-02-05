@@ -7,7 +7,6 @@ const rollBtn = document.querySelector(".btn--roll");
 const holdBtn = document.querySelector(".btn--hold");
 //player 1
 const player1EL= document.querySelector('.player--0')
-
 let totalScoreP1EL = document.querySelector("#score--0");
 let currentScoreP1EL = document.querySelector("#current--0");
 //player 2
@@ -15,24 +14,13 @@ const player2EL= document.querySelector('.player--1')
 let totalScoreP2EL = document.querySelector("#score--1");
 let currentScoreP2EL = document.querySelector("#current--1");
 
-
 //the dice
 const diceEL = document.querySelector(".dice");
 
-//the array
-let arrayTotal=[0,0];
- /***********************Starting condoitions****************************/
-let playing = true;
-totalScoreP1EL.textContent = 0;
-totalScoreP2EL.textContent = 0;
-let currentScore = 0;
-diceEL.classList.add('hidden');
-let nowPlay = 0;
-
-
+let arrayTotal, playing, currentScore, nowPlay;
+initialize();
 /*********************My methods******************************/
 function switchPlayer(){
-
     currentScore = 0;
     document.getElementById(`current--${nowPlay}`).textContent = 0;
     nowPlay = nowPlay===0? 1: 0;
@@ -40,11 +28,25 @@ function switchPlayer(){
     player1EL.classList.toggle('player--active');
 
 }
+function initialize (){
+    currentScore = 0;
+    arrayTotal = [0,0];
 
-
-
+    playing = true;
+    rollBtn.disabled = false;
+    holdBtn.disabled = false;
+    totalScoreP2EL.textContent = 0;
+    totalScoreP1EL.textContent = 0;
+    currentScoreP2EL.textContent = 0;
+    currentScoreP1EL.textContent = 0;
+    player1EL.classList.remove('player--winner')
+    player2EL.classList.remove('player--winner')
+    player2EL.classList.remove('player--active')
+    nowPlay = 0;
+    diceEL.classList.add('hidden');
+}
 /*********************My exe******************************/
-//roll Button
+
  rollBtn.addEventListener('click',()=> {
      if (playing) {
 //1. generating a number
@@ -97,27 +99,6 @@ function switchPlayer(){
 
  });
 
-newGameBtn.addEventListener('click', ()=> {
-    currentScore = 0;
-    console.log(arrayTotal);
-    arrayTotal.splice(0,2);
-    console.log(arrayTotal);
-    playing = true;
-    rollBtn.disabled = false;
-    holdBtn.disabled = false;
-    diceEL.classList.remove('hidden');
-    totalScoreP2EL.textContent = 0;
-    totalScoreP1EL.textContent = 0;
-    currentScoreP2EL.textContent = 0;
-    currentScoreP1EL.textContent = 0;
-    document.querySelector(`.player--${nowPlay}`).classList.remove('player--winner');
-    player1EL.classList.toggle('player--active')
-
-
-
-
-
-})
-
+newGameBtn.addEventListener('click', initialize)
 
 
